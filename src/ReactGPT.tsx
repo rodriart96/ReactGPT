@@ -1,11 +1,10 @@
-import React from 'react'
 
 const ReactGPT = () => {
-  return (
-    <h1>
-        ReactGPT
-    </h1>
-  )
+    return (
+        <h1 className="fade-in text-3xl font-bold underline">
+            ReactGPT
+        </h1>
+    )
 }
 
 export default ReactGPT
