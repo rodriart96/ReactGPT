@@ -1,18 +1,18 @@
 import { useState } from "react"
-import { ChatMessageBox, GptMessages, MyMessage, TypingLoader } from "../../components"
+import { GptMessages, MyMessage, TypingLoader, ChatMessageBox } from "../components";
 
 interface Messages {
   text: string;
   isGpt: boolean;
 }
 
-export const OrthographyPage = () => {
+export const ChatTemplate = () => {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Messages[]>([]);
 
-  const handlePost = async (text: string) => {
+  const handlePost = async( text: string) =>{
     setLoading(true);
-    setMessages((prev) => [...prev, { text: text, isGpt: false }]);
+    setMessages((prev) =>[...prev,  {text: text, isGpt:false}]);
 
     //TODO USECASE
 
@@ -38,9 +38,9 @@ export const OrthographyPage = () => {
           }
           {
             loading && (
-              <div className="fade-in">
-                <TypingLoader className="fade-in" />
-              </div>)
+            <div className="fade-in">
+              <TypingLoader className="fade-in" />
+            </div>) 
           }
 
         </div>
@@ -48,10 +48,8 @@ export const OrthographyPage = () => {
       <ChatMessageBox
         onSendMessage={handlePost}
         placeholder="Texto..."
-        disableCorrections
-      /> 
-
-     
+        disableCorrections={true}
+      />
 
     </div>
   )
