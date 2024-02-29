@@ -5,3 +5,4 @@ export * from './loaders/TypingLoader';
 export * from './Chat-input-boxes/ChatMessageBox';
 export * from './Chat-input-boxes/ChatMessageBoxFile';
 export * from './Chat-input-boxes/ChatMessageBoxSelect';
+export * from './Chat-Bubbles/GptOrthographyMessage';

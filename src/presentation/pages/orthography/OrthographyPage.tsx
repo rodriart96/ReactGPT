@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { ChatMessageBox, GptMessages, MyMessage, TypingLoader } from "../../components"
+import { ChatMessageBox, GptMessages, GptOrthographyMessage, MyMessage, TypingLoader } from "../../components"
+import { orthographyUseCase } from "../../../core/use-cases";
 
 interface Messages {
   text: string;
@@ -14,8 +15,16 @@ export const OrthographyPage = () => {
     setLoading(true);
     setMessages((prev) => [...prev, { text: text, isGpt: false }]);
 
-    //TODO USECASE
-
+    const {ok, errors, message, userScore} = await orthographyUseCase(text);
+    
+    if(!ok){
+      setMessages ((prev)=>[...prev, {text:'No se pudo realizar la correcion', isGpt:true}]);
+    } else{
+      setMessages((prev)=>[...prev, {text: message, isGpt:true,
+      info:{ errors, message, userScore }
+      }]);
+    }
+    
     setLoading(false);
 
     //TODO: agregar de isGPT true
@@ -30,10 +39,9 @@ export const OrthographyPage = () => {
           {
             messages.map((message, index) => (
               message.isGpt ?
-                (<GptMessages key={index} text="OpenAI" />)
+                (<GptOrthographyMessage key={index} {...message.info!}/>)
                 :
-                (<MyMessage key={index} text={message.text} />
-                )
+                (<MyMessage key={index} text={message.text} />)
             ))
           }
           {
